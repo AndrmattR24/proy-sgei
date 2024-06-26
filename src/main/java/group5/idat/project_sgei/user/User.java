@@ -54,6 +54,8 @@ public class User implements UserDetails {
     @Column(updatable = true)
     private Date updatedAt;
 
+
+    // Implementacion de Metodos del UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
