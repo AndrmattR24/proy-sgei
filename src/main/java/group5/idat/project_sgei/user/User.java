@@ -1,4 +1,4 @@
-package group5.idat.project_sgei.entities;
+package group5.idat.project_sgei.user;
 
 import java.util.Date;
 
