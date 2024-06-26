@@ -14,14 +14,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${security.jwt.secret-key}")
-    private final String SECRET_KEY;
+    private String SECRET_KEY;
 
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
