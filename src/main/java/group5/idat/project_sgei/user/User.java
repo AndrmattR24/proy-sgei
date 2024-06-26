@@ -4,73 +4,60 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
-@Table(name = "users")
 @Data
-@Builder
+@Table(name = "users")
 @AllArgsConstructor
-@NoArgsConstructor
-
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
-    @Column(length = 50, nullable = false, unique = true)
-    private String username;
+    private String UserID;
 
     @Column(length = 100, nullable = false)
-    private String fullName;
+    private String firstname;
+
+    @Column(length = 100, nullable = false)
+    private String lastname;
+
+    @Column(length = 20, nullable = false, unique = true)
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(nullable = false, length = 20)
     private String password;
 
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     private Date createdAt;
 
     @UpdateTimestamp
-    @Column(updatable = true)
+    @Column(updatable = true, nullable = false)
     private Date updatedAt;
 
+    @Column(columnDefinition = "", length = 6)
+    private String recoveryCode;
 
-    // Implementacion de Metodos del UserDetails
+    //relation with Role Enumerator
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
+    //Override userDetails Methods
     @Override
     public boolean isAccountNonExpired() {
         return true;
