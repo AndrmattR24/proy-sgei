@@ -24,15 +24,15 @@ public class JwtService {
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
 
-    private String getUsernameFromToken(String token) {
+    public String getUsernameFromToken(String token) {
         return extractClaimFromClaims(token, Claims::getSubject);
     }
 
-    private Date getExpiredFromToken(String token) {
+    public Date getExpiredFromToken(String token) {
         return extractClaimFromClaims(token, Claims::getExpiration);
     }
 
-    private String generateToken(Map<String, Object> extraClaims,
+    public String generateToken(Map<String, Object> extraClaims,
             UserDetails userDt, Long expiration) {
         return Jwts
                 .builder()
